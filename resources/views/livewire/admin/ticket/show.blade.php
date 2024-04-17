@@ -13,7 +13,6 @@
     <x-card header="Detalhe do Ticket #{{ $ticket->id }}">
         <div class="mb-8 grid grid-cols-2">
             <div>
-
                 <h2 class="text-xl font-semibold mb-2">Empresa:</h2>
                 <p class=" mb-4">#{{ $ticket->client->business_name }}</p>
             </div>
@@ -34,8 +33,8 @@
                 <p class=" mb-4">{{ $ticket->created_at }}</p>
             </div>
             <div>
-                <h2 class="text-xl font-semibold mb-2">Última Atualização:</h2>
-                <p class=" mb-4">{{ $ticket->updated_at }}</p>
+                <h2 class="text-xl font-semibold mb-2">Data de Finalização:</h2>
+                <p class=" mb-4">{{ $ticket->finished_at }}</p>
             </div>
             <div>
                 <h2 class="text-xl font-semibold mb-2">Tecnico:</h2>
@@ -46,11 +45,6 @@
                 <h2 class="text-xl font-semibold mb-2">Solução:</h2>
                 <p class=" mb-4">{{ $ticket->solution }}</p>
             </div>
-
-
-
-
-
         </div>
 
         <x-collapse>
@@ -59,10 +53,15 @@
             </x-slot:heading>
             <x-slot:content>
                 <x-form wire:submit="save">
-                    <x-input wire:model='cpf_cnpj' wire:loading.attr="disabled" class="" label="CNPJ/CPF" />
-                    <x-input wire:model='system' wire:loading.attr="disabled" class="" label="Sistema" />
-                    <x-radio label="Contrato" wire:loading.attr="disabled" :options="[['key' => 1, 'value' => 'Sim'], ['key' => 0, 'value' => 'Não']]" option-value="key"
-                        option-label="value" wire:model="contract" />
+                    <x-choices label="Tecnico" placeholder-value="{{ $user_id }}" wire:model="user_id"
+                        :options="$users" single />
+                    <x-choices label="Status" wire:model="status" :options="$statusOptions" option-value="key"
+                        option-label="value" single />
+                    <x-textarea wire:model="solution" label="Solução *" />
+                    <x-slot:actions>
+                        <x-button label="Voltar" :link="route('ticket.index')" />
+                        <x-button label="Salvar" class="btn-primary" type="submit" spinner="save" />
+                    </x-slot:actions>
                 </x-form>
             </x-slot:content>
         </x-collapse>
