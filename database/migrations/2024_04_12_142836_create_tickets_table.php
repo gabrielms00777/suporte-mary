@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('reported_issue'); // Problema relatado
             $table->enum('status', ['scheduled', 'open', 'in_progress', 'finished'])->default('open'); // Status
             $table->text('solution')->nullable(); // Solução
-            $table->boolean('finished')->default(false); // Finalizado (padrão: true)
+            $table->boolean('finished_at')->nullable(); // Finalizado (padrão: true)
             $table->foreignIdFor(User::class, 'finished_by')->nullable(); // Técnico (referência a User)
             $table->timestamps();
         });

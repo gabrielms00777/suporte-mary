@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Ticket;
 
+use App\Events\TicketEditedEvent;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -33,6 +34,7 @@ class Index extends Component
 
     public function start(Ticket $ticket)
     {
+        broadcast(new TicketEditedEvent)->toOthers();
         $ticket->update([
             'finished_by' => Auth::user()->id,
             'status' => 'in_progress'
@@ -42,16 +44,18 @@ class Index extends Component
 
     public function finish(Ticket $ticket)
     {
+        broadcast(new TicketEditedEvent)->toOthers();
         $ticket->update([
             'solution' => $this->solution,
             'status' => 'finished',
-            'finished' => true
+            'finished_at' => now()
         ]);
         $this->dispatch('finish::ticket');
     }
 
     public function stop(Ticket $ticket)
     {
+        broadcast(new TicketEditedEvent)->toOthers();
         $ticket->update([
             'finished_by' => null,
             'solution' => null,
@@ -63,6 +67,7 @@ class Index extends Component
 
     public function delete(Ticket $ticket)
     {
+        broadcast(new TicketEditedEvent)->toOthers();
         $ticket->delete();
         $this->dispatch('deleted::ticket');
     }
@@ -71,6 +76,13 @@ class Index extends Component
     public function ticketCreatedEvent()
     {
         $this->warning('Chamado novo criado!');
+        $this->rows();
+    }
+
+    #[On('echo:tickets,TicketEditedEvent')]
+    public function ticketEditedEvent()
+    {
+        $this->warning('Um chamado foi editado editado!');
         $this->rows();
     }
 

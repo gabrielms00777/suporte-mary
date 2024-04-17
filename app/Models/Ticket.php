@@ -17,13 +17,13 @@ class Ticket extends Model
         'reported_issue',
         'status',
         'solution',
-        'finished',
+        'finished_at',
         'finished_by',
         'scheduling_date'
     ];
 
     protected $casts = [
-        'finished' => 'boolean',
+        'finished_at' => 'datetime',
         'scheduling_date' => 'datetime',
     ];
 

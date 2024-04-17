@@ -24,7 +24,7 @@
                     </ul>
                     <ul>
                         <li>Tecnico: {{ $ticket->finishedBy->name ?? '' }}</li>
-                        <li>Finalizado: {{ $ticket->finished }}</li>
+                        <li>Finalizado em: {{ $ticket->finished_at }}</li>
                         <li>Solução: {{ $ticket->solution }}</li>
 
 
@@ -48,7 +48,8 @@
 
             @scope('actions', $ticket)
                 <div class="flex gap-1">
-                    @if (!$ticket->finished)
+
+                    @if (!$ticket->finished_at)
                         @if ($ticket->created_by && $ticket->status == 'in_progress')
                             <x-button icon="o-pause" wire:click="stop({{ $ticket->id }})" spinner
                                 class="text-black bg-yellow-500 btn-sm hover:bg-yellow-600" />
@@ -62,17 +63,17 @@
                                 <x-slot:actions>
                                     {{-- Notice `onclick` is HTML --}}
                                     <x-button label="Cancel" onclick="modal_{{ $ticket->id }}.close()" />
-                                    <x-button label="Confirm" wire:click="finish({{ $ticket->id }})"
-                                        class="btn-primary" />
+                                    <x-button label="Confirm" wire:loading.attr="disabled"
+                                        wire:click="finish({{ $ticket->id }})" class="btn-primary" />
                                 </x-slot:actions>
                             </x-modal>
-                        @else
+                        @elseif ($ticket->status == 'open')
                             <x-button icon="o-play" wire:click="start({{ $ticket->id }})" spinner
                                 class="text-black bg-green-500 btn-sm hover:bg-green-600" />
                         @endif
                     @endif
 
-                    <x-button icon="o-pencil-square" wire:click="delete({{ $ticket->id }})" spinner
+                    <x-button icon="o-pencil-square" link="{{ route('ticket.show', $ticket->id) }}" spinner
                         class="text-black bg-blue-500 btn-sm hover:bg-blue-600" />
                     <x-button icon="o-trash" wire:click="delete({{ $ticket->id }})"
                         wire:confirm="Tem certeza que deletar esse chamado?" spinner
@@ -84,6 +85,4 @@
         </x-table>
 
     </x-card>
-    <x-button icon="o-pencil-square" wire:click="test" spinner
-        class="text-black bg-blue-500 btn-sm hover:bg-blue-600" />
 </div>
