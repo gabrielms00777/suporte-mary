@@ -9,11 +9,11 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
-
+use Mary\Traits\Toast;
 
 class Index extends Component
 {
-    use WithPagination;
+    use WithPagination, Toast;
 
     // public array $sortBy = ['column' => 'id', 'direction' => 'desc'];
 
@@ -33,7 +33,6 @@ class Index extends Component
 
     public function start(Ticket $ticket)
     {
-        // dd('oi');
         $ticket->update([
             'finished_by' => Auth::user()->id,
             'status' => 'in_progress'
@@ -43,7 +42,6 @@ class Index extends Component
 
     public function finish(Ticket $ticket)
     {
-        // dd($this->solution);
         $ticket->update([
             'solution' => $this->solution,
             'status' => 'finished',
@@ -63,9 +61,23 @@ class Index extends Component
         $this->dispatch('stop::ticket');
     }
 
+    public function delete(Ticket $ticket)
+    {
+        $ticket->delete();
+        $this->dispatch('deleted::ticket');
+    }
+
+    #[On('echo:tickets,TicketCreatedEvent')]
+    public function ticketCreatedEvent()
+    {
+        $this->warning('Chamado novo criado!');
+        $this->rows();
+    }
+
     #[On('start::ticket')]
     #[On('stop::ticket')]
     #[On('finish::ticket')]
+    #[On('deleted::ticket')]
     #[Computed()]
     public function rows()
     {
