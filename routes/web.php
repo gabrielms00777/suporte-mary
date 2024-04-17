@@ -6,6 +6,20 @@ use Livewire\Volt\Volt;
 // auth()->loginUsingId(1);
 Volt::route('/', 'users.index');
 
-Route::get('tickets', Admin\Ticket\Index::class)->name('ticket.index');
-Route::get('tickets/cadastrar', Admin\Ticket\Create::class)->name('ticket.create');
-Route::get('tickets/{ticket}', Admin\Ticket\Show::class)->name('ticket.show');
+Volt::route('/login', 'login')->name('login');
+Volt::route('/register', 'register')->name('register');
+
+Route::get('/logout', function () {
+    auth()->logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+
+    return redirect('/');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('tickets', Admin\Ticket\Index::class)->name('ticket.index');
+    Route::get('tickets/cadastrar', Admin\Ticket\Create::class)->name('ticket.create');
+    Route::get('tickets/{ticket}', Admin\Ticket\Show::class)->name('ticket.show');
+});
+
