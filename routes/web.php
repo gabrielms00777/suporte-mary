@@ -21,5 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::get('tickets', Admin\Ticket\Index::class)->name('ticket.index');
     Route::get('tickets/cadastrar', Admin\Ticket\Create::class)->name('ticket.create');
     Route::get('tickets/{ticket}', Admin\Ticket\Show::class)->name('ticket.show');
+
+    Route::get('usuarios', Admin\User\Index::class)->name('users.index');
+    Route::get('usuarios/cadastrar', Admin\User\Create::class)->name('users.create');
 });
 

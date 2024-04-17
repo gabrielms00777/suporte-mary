@@ -55,6 +55,10 @@
                     <x-menu-item title="Listar" icon="o-list-bullet" wire:navigate :link="route('ticket.index')" />
                     <x-menu-item title="Adicionar" icon="o-plus-circle" wire:navigate :link="route('ticket.create')" />
                 </x-menu-sub>
+                <x-menu-sub title="Usuarios" icon="o-users">
+                    <x-menu-item title="Listar" icon="o-list-bullet" wire:navigate :link="route('users.index')" />
+                    <x-menu-item title="Adicionar" icon="o-plus-circle" wire:navigate :link="route('users.create')" />
+                </x-menu-sub>
             </x-menu>
         </x-slot:sidebar>
 
