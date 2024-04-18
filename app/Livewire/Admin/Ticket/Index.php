@@ -60,7 +60,7 @@ class Index extends Component
             'finished_by' => null,
             'solution' => null,
             'status' => 'open',
-            'finished' => false
+            'finished_at' => null
         ]);
         $this->dispatch('stop::ticket');
     }

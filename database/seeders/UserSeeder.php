@@ -15,51 +15,34 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Criar roles
-        $clientRole = Role::create(['name' => 'Cliente']);
-        $employeeRole = Role::create(['name' => 'Funcionário']);
-        $managerRole = Role::create(['name' => 'Gerente']);
-        $superAdminRole = Role::create(['name' => 'Super Admin']);
-
-        // Criar permissões
-        $verTicketsPermission = Permission::create(['name' => 'Ver Tickets']);
-        $editarTicketsPermission = Permission::create(['name' => 'Editar Tickets']);
-        $gerenciarFuncionariosPermission = Permission::create(['name' => 'Gerenciar Funcionários']);
-        $atribuirFuncoesPermission = Permission::create(['name' => 'Atribuir Funções']);
-
-        // Atribuir permissões para cada role
-        $clientRole->permissions()->attach([$verTicketsPermission->id]);
-        $employeeRole->permissions()->attach([$verTicketsPermission->id, $editarTicketsPermission->id]);
-        $managerRole->permissions()->attach([$verTicketsPermission->id, $editarTicketsPermission->id, $gerenciarFuncionariosPermission->id, $atribuirFuncoesPermission->id]);
-        $superAdminRole->permissions()->attach([$verTicketsPermission->id, $editarTicketsPermission->id, $gerenciarFuncionariosPermission->id, $atribuirFuncoesPermission->id]);
 
         // Criar usuários
-        $client = User::create([
-            'name' => 'Cliente',
-            'email' => 'cliente@example.com',
-            'password' => bcrypt('password'),
-            'role_id' => $clientRole->id
+        $admin = User::factory()->create([
+            'name' => 'Admin',
+            'email' => 'admin@admin',
+            'password' => 'admin',
+            'role_id' => 4,
         ]);
 
-        $employee = User::create([
-            'name' => 'Funcionário',
-            'email' => 'funcionario@example.com',
+        $gabriel = User::create([
+            'name' => 'Gabriel',
+            'email' => 'gabriel@test',
             'password' => bcrypt('password'),
-            'role_id' => $employeeRole->id
+            'role_id' => 2,
         ]);
 
-        $manager = User::create([
-            'name' => 'Gerente',
-            'email' => 'gerente@example.com',
+        $diego = User::create([
+            'name' => 'Diego',
+            'email' => 'diego@test',
             'password' => bcrypt('password'),
-            'role_id' => $managerRole->id
+            'role_id' => 2,
         ]);
 
-        $superAdmin = User::create([
-            'name' => 'Super Admin',
-            'email' => 'superadmin@example.com',
+        $eduardo = User::create([
+            'name' => 'Eduardo',
+            'email' => 'eduardo@test',
             'password' => bcrypt('password'),
-            'role_id' => $superAdminRole->id
+            'role_id' => 3,
         ]);
     }
 }
