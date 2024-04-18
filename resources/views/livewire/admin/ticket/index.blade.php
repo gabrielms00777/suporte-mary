@@ -21,12 +21,12 @@
                         <li>CNPJ: {{ $ticket->client->cpf_cnpj }}</li>
                         <li>Telefone: {{ $ticket->client_phone }}</li>
                         <li>Motivo: {{ $ticket->reported_issue }}</li>
+                        <li>Observação: {{ $ticket->observation }}</li>
                     </ul>
                     <ul>
                         <li>Tecnico: {{ $ticket->finishedBy->name ?? '' }}</li>
                         <li>Finalizado em: {{ $ticket->finished_at }}</li>
                         <li>Solução: {{ $ticket->solution }}</li>
-
 
                     </ul>
                 </div>

@@ -45,6 +45,10 @@
                 <h2 class="text-xl font-semibold mb-2">Solução:</h2>
                 <p class=" mb-4">{{ $ticket->solution }}</p>
             </div>
+            <div class="col-span-2">
+                <h2 class="text-xl font-semibold mb-2">Observação:</h2>
+                <p class=" mb-4">{{ $ticket->observation }}</p>
+            </div>
         </div>
 
         <x-collapse>
@@ -53,11 +57,12 @@
             </x-slot:heading>
             <x-slot:content>
                 <x-form wire:submit="save">
-                    <x-choices label="Tecnico" placeholder-value="{{ $user_id }}" wire:model="user_id"
+                    <x-textarea wire:model="observation" label="Observação" />
+                    <x-choices label="Tecnico" placeholder-value="{{ $finished_by }}" wire:model="finished_by"
                         :options="$users" single />
                     <x-choices label="Status" wire:model="status" :options="$statusOptions" option-value="key"
                         option-label="value" single />
-                    <x-textarea wire:model="solution" label="Solução *" />
+                    <x-textarea wire:model="solution" label="Solução" />
                     <x-slot:actions>
                         <x-button label="Voltar" :link="route('ticket.index')" />
                         <x-button label="Salvar" class="btn-primary" type="submit" spinner="save" />

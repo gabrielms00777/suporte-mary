@@ -17,6 +17,7 @@ class Ticket extends Model
         'reported_issue',
         'status',
         'solution',
+        'observation',
         'finished_at',
         'finished_by',
         'scheduling_date'

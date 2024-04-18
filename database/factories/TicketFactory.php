@@ -27,6 +27,7 @@ class TicketFactory extends Factory
             'reported_issue' => $this->faker->sentence,
             'status' => $this->faker->randomElement(['open', 'in_progress', 'finished', 'scheduled']),
             'solution' => $this->faker->paragraph,
+            'observation' => $this->faker->paragraph,
             'finished_at' => $this->faker->boolean ? now() : null,
             // 'scheduling_date' => now(),
             'finished_by' => $user,
