@@ -19,18 +19,21 @@ class Index extends Component
         ['key' => 'id', 'label' => '#'],
         ['key' => 'name', 'label' => 'Nome'],
         ['key' => 'email', 'label' => 'Email'],
-        ['key' => 'type', 'label' => 'Tipo'],
+        ['key' => 'roles', 'label' => 'Tipo'],
     ];
 
     #[Computed()]
     public function users()
     {
         return User::query()
+                        ->with('roles')
                         ->latest()
                         ->paginate(10);
     }
     public function render()
     {
+        // dd($this->users);
+        // dd(auth()->user()->role());
         return view('livewire.admin.user.index');
     }
 }

@@ -19,15 +19,17 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
+
+
+        $this->call([
+            UserSeeder::class
+        ]);
+
         $admin = User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@admin',
             'password' => 'admin',
-            'type' => UserTypeEnum::ADMIN,
-        ]);
-
-        $this->call([
-            UserSeeder::class
+            'role_id' => 4,
         ]);
 
         Client::factory()

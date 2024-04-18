@@ -6,8 +6,7 @@
             <div class="grid grid-cols-1 my-3 gap-6 sm:grid-cols-3 ">
                 <x-input label="Nome" wire:model="name" />
                 <x-input wire:model='email' class="" label="Email" />
-                <x-choices label="Escolha um contato..." wire:model="type" :options="$this->types" single option-value="key"
-                    option-label="value" />
+                <x-choices label="Tipo" wire:model="role" :options="$this->roles" single />
                 <x-input wire:model='password' type="password" class="" label="Senha" />
                 <x-input wire:model='password_confirmation' type="password" class="" label="Confirmar Senha" />
             </div>

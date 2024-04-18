@@ -38,28 +38,28 @@ class UserSeeder extends Seeder
             'name' => 'Cliente',
             'email' => 'cliente@example.com',
             'password' => bcrypt('password'),
+            'role_id' => $clientRole->id
         ]);
-        $client->roles()->attach($clientRole);
 
         $employee = User::create([
             'name' => 'Funcionário',
             'email' => 'funcionario@example.com',
             'password' => bcrypt('password'),
+            'role_id' => $employeeRole->id
         ]);
-        $employee->roles()->attach($employeeRole);
 
         $manager = User::create([
             'name' => 'Gerente',
             'email' => 'gerente@example.com',
             'password' => bcrypt('password'),
+            'role_id' => $managerRole->id
         ]);
-        $manager->roles()->attach($managerRole);
 
         $superAdmin = User::create([
             'name' => 'Super Admin',
             'email' => 'superadmin@example.com',
             'password' => bcrypt('password'),
+            'role_id' => $superAdminRole->id
         ]);
-        $superAdmin->roles()->attach($superAdminRole);
     }
 }

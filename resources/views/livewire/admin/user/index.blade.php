@@ -11,8 +11,14 @@
     </x-header>
 
     <x-card>
-        <x-table :headers="$headers" :rows="$this->users" with-pagination @row-selection="console.log($event.detail)">
-
+        <x-table :headers="$headers" :rows="$this->users" with-pagination>
+            @scope('cell_roles', $roles)
+                {{-- @dump($roles->roles()->first()->name) --}}
+                @foreach ($roles->roles as $role)
+                    {{-- {{ $role->name }} --}}
+                    <x-badge :value="$role->name" class="badge-primary" />
+                @endforeach
+            @endscope
         </x-table>
 
     </x-card>

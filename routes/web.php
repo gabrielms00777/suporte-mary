@@ -3,7 +3,7 @@
 use App\Livewire\Admin;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
-// auth()->loginUsingId(1);
+auth()->loginUsingId(5);
 Volt::route('/', 'users.index');
 
 Volt::route('/login', 'login')->name('login');

@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\User;
 
 use App\Enums\UserTypeEnum;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
@@ -29,20 +30,22 @@ class Create extends Component
     #[Validate('required')]
     public string $password_confirmation = '';
 
-    // #[Validate(['required', 'type' => Rule::enum(UserTypeEnum::class)])]
-    #[Validate(['required'])]
-    public string $type;
+    #[Validate(['required', 'exists:roles,id'])]
+    public string $role;
 
     public function save()
     {
         $data = $this->validate();
 
-        $data['avatar'] = '/empty-user.jpg';
-        $data['password'] = Hash::make($data['password']);
-
-        $user = User::create($data);
-        $this->success('Usuário criado com sucesso!', redirectTo:route('users.index'));
         try {
+            $data['avatar'] = '/empty-user.jpg';
+            $data['password'] = Hash::make($data['password']);
+
+            $user = User::create($data);
+
+            $user->roles()->attach($data['role']);
+
+            $this->success('Usuário criado com sucesso!', redirectTo:route('users.index'));
 
         } catch (\Throwable $th) {
             $this->error('Ocorreu um erro, tente novamente!');
@@ -54,20 +57,15 @@ class Create extends Component
 
 
      #[Computed()]
-     public function types(): Collection
+     public function roles(): Collection
      {
-         return collect([
-                ['key' => UserTypeEnum::CLIENT->name, 'value' => "Cliente"],
-                ['key' => UserTypeEnum::EMPLOYEE->name, 'value' => "Funcionario"],
-                ['key' => UserTypeEnum::MANAGER->name, 'value' => "Gerente"],
-                ['key' => UserTypeEnum::ADMIN->name, 'value' => "Admin"],
-         ]);
+         return Role::query()->get(['id', 'name']);
      }
 
 
     public function render()
     {
-        // dd([$this->types]);
+        // dd($this->roles);
         return view('livewire.admin.user.create');
     }
 }
