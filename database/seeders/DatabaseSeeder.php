@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\UserTypeEnum;
 use App\Models\Client;
 use App\Models\Contact;
 use App\Models\Ticket;
@@ -22,6 +23,11 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@admin',
             'password' => 'admin',
+            'type' => UserTypeEnum::ADMIN,
+        ]);
+
+        $this->call([
+            UserSeeder::class
         ]);
 
         Client::factory()

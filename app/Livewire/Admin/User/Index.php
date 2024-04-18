@@ -19,7 +19,7 @@ class Index extends Component
         ['key' => 'id', 'label' => '#'],
         ['key' => 'name', 'label' => 'Nome'],
         ['key' => 'email', 'label' => 'Email'],
-        ['key' => 'role', 'label' => 'Role'],
+        ['key' => 'type', 'label' => 'Tipo'],
     ];
 
     #[Computed()]
