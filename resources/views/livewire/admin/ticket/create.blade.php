@@ -7,8 +7,8 @@
             <x-icon name="o-heart" class="cursor-pointer" />
         </x-slot:menu>
         <x-form wire:submit="save">
-            <x-choices label="Escolha a empresa..." wire:loading.attr="disabled" option-label="business_name"
-                wire:model.live="client_id" :options="$clients" single />
+            <x-choices-offline searchable label="Escolha a empresa..." wire:loading.attr="disabled"
+                option-label="business_name" wire:model.live="client_id" :options="$clients" single />
             <x-input label="Empresa" wire:loading.attr="disabled" wire:model="business_name" />
             <div class="grid grid-cols-1 my-3 gap-6 sm:grid-cols-3 ">
                 <x-input wire:model='cpf_cnpj' wire:loading.attr="disabled" class="" label="CNPJ/CPF" />
@@ -17,14 +17,14 @@
                     option-label="value" wire:model="contract" />
             </div>
             <x-menu-separator />
-            <x-choices label="Escolha um contato..." wire:loading.attr="disabled" wire:model.live="contact_id"
-                :options="$this->contacts" single />
+            <x-choices-offline searchable label="Escolha um contato..." wire:loading.attr="disabled"
+                wire:model.live="contact_id" :options="$this->contacts" single />
 
             <div class="grid grid-cols-1 my-4  gap-6 sm:grid-cols-2 ">
                 <x-input wire:model='client_name' wire:loading.attr="disabled" class="" label="Contato *" />
                 <x-input wire:model='client_phone' wire:loading.attr="disabled" class="" label="Telefone *" />
             </div>
-            <x-textarea wire:model="reported_issue" label="Motivo *" />
+            <x-textarea wire:model="reported_issue" wire:loading.attr="disabled" label="Motivo *" />
 
             <x-slot:actions>
                 <x-button label="Cancel" :link="route('ticket.index')" />

@@ -15,9 +15,9 @@ use Mary\Traits\Toast;
 class Create extends Component
 {
     use Toast;
-    public ?int $client_id;
+    public ?int $client_id = null;
 
-    public ?int $contact_id;
+    public ?int $contact_id = null;
 
     public ?Client $client;
     public ?Contact $contact;
