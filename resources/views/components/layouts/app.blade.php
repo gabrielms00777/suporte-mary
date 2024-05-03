@@ -52,14 +52,18 @@
                     <x-menu-separator />
                 @endif
 
-                <x-menu-item title="Hello" icon="o-sparkles" link="/" />
-                <x-menu-sub title="Tickets" icon="o-cog-6-tooth">
+                <x-menu-item title="Hello" icon="o-home" link="/" />
+                <x-menu-sub title="Tickets" icon="o-ticket">
                     <x-menu-item title="Listar" icon="o-list-bullet" wire:navigate :link="route('ticket.index')" />
                     <x-menu-item title="Adicionar" icon="o-plus-circle" wire:navigate :link="route('ticket.create')" />
                 </x-menu-sub>
                 <x-menu-sub title="Usuarios" icon="o-users">
                     <x-menu-item title="Listar" icon="o-list-bullet" wire:navigate :link="route('users.index')" />
                     <x-menu-item title="Adicionar" icon="o-plus-circle" wire:navigate :link="route('users.create')" />
+                </x-menu-sub>
+                <x-menu-sub title="Desbloqueios" icon="o-lock-closed">
+                    <x-menu-item title="Listar" icon="o-list-bullet" wire:navigate :link="route('unlocks.index')" />
+                    <x-menu-item title="Adicionar" icon="o-plus-circle" wire:navigate :link="route('unlocks.create')" />
                 </x-menu-sub>
             </x-menu>
         </x-slot:sidebar>

@@ -24,5 +24,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('usuarios', Admin\User\Index::class)->name('users.index');
     Route::get('usuarios/cadastrar', Admin\User\Create::class)->name('users.create');
+
+    Route::get('desbloqueios', Admin\Unlock\Index::class)->name('unlocks.index');
+    Route::get('desbloqueios/cadastrar', Admin\Unlock\Create::class)->name('unlocks.create');
 });
 
