@@ -25,7 +25,15 @@
                 <x-input wire:model='client_phone' wire:loading.attr="disabled" class="" label="Telefone *" />
             </div>
             <x-textarea wire:model="reported_issue" wire:loading.attr="disabled" label="Motivo *" />
-
+            <x-collapse>
+                <x-slot:heading>
+                    Agendamento
+                </x-slot:heading>
+                <x-slot:content>
+                    <x-datetime label="Date + Time" wire:model="scheduling_date" icon="o-calendar"
+                        type="datetime-local" />
+                </x-slot:content>
+            </x-collapse>
             <x-slot:actions>
                 <x-button label="Cancel" :link="route('ticket.index')" />
                 <x-button label="Salvar" class="btn-primary" type="submit" spinner="save" />

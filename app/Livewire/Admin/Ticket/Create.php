@@ -37,6 +37,9 @@ class Create extends Component
     #[Validate(['required', 'string'])]
     public string $system;
 
+    // #[Validate(['nullable', 'string'])]
+    // public string $scheduling_date;
+
     public function updatedClientId()
     {
         $this->contact_id = null;
@@ -87,6 +90,7 @@ class Create extends Component
             }
 
             Ticket::create(array_merge(
+                // $this->only(['client_id', 'reported_issue', 'client_name', 'client_phone', 'scheduling_date']),
                 $this->only(['client_id', 'reported_issue', 'client_name', 'client_phone']),
                  ['created_by' => Auth::user()->id]
             ));
